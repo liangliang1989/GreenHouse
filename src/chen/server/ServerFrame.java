@@ -1,3 +1,6 @@
+/**
+ * 实现server的界面显示功能
+ */
 package chen.server;
 
 import java.awt.BorderLayout;
@@ -27,29 +30,34 @@ public class ServerFrame extends JFrame {
 		Server server = new Server(sf);
 		server.start();
 	}
-
+    /**
+     * 定义布局控件
+     */
 	private JTextField jtf1, jtf2, jtf3, jtf4, jtf5, jtf6;
 	private JLabel jl1, jl2, jl3, jl4, jl5, jl6, jl7, jl8, jl9, jl10;
-	private JButton jb1, jb2, jb3, jb4,jb5,jb6,jb7,jb8;
+	private JButton jb1, jb2, jb3, jb4,jb5,jb6;
 	private JPanel jp1, jp2, jp3, jp4;
 	private JTextArea jta;
 	private JScrollPane jsp;
 	private DataRandom dr;
 	public static DataInfo info;
 	public static Device device;
-	private static final int WIDTH;
-	private static final int HEIGHT;
-	private static final String TITLE;
+	private static final int WIDTH;      //界面宽度
+	private static final int HEIGHT;     //界面高度
+	private static final int INIT_RANDOM;//初始化随机数范围
+	private static final String TITLE;   //标题
+	private Thread thread;               //产生随机数的线程
 	static {
 		info = new DataInfo();
 		WIDTH = Integer.parseInt(PropertyMgr.getProperty("server_width"));
 		HEIGHT = Integer.parseInt(PropertyMgr.getProperty("server_height"));
+		INIT_RANDOM = Integer.parseInt(PropertyMgr.getProperty("initRandom"));
 		TITLE = PropertyMgr.getProperty("title");
 	}
-	private Thread thread;
-
+	
+	//构造函数，初始化参数
 	public ServerFrame() {
-		dr = new DataRandom(50, this);
+		dr = new DataRandom(INIT_RANDOM, this);
 		thread = new Thread(dr);
 		thread.start();
 		device = new Device(false, false, false, false);
@@ -100,6 +108,8 @@ public class ServerFrame extends JFrame {
 		jp1.add(jb2);
 		jp1.add(jb3);
 		jp1.add(jb4);
+		jp1.add(jb5);
+		jp1.add(jb6);
 		jp1.add(jl7);
 		jp1.add(jl8);
 		jp1.add(jl9);
@@ -115,6 +125,7 @@ public class ServerFrame extends JFrame {
 
 	class ButtonActionListener implements ActionListener {
 
+		//更新数据方法
 		public void updataInfo() {
 			info.setAirTemperature(jtf1.getText());
 			info.setAirHumidity(jtf2.getText());
@@ -125,8 +136,9 @@ public class ServerFrame extends JFrame {
 			showText(info.toString());
 		}
 
+		// 设置按钮处理
 		public void actionPerformed(ActionEvent e) {
-			// 设置按钮处理
+            //设置按钮处理
 			if (e.getSource() == jb1) {
 				updataInfo();
 			}
@@ -155,13 +167,19 @@ public class ServerFrame extends JFrame {
 			else if (e.getSource() == jb4) {	
 				dr.setWaitFlag(false);
 			}
+			//清屏
+			else if(e.getSource()==jb5){
+			  jta.setText(null);
+			}
+			//退出
+			else if(e.getSource()==jb6){
+				System.exit(0);
+			}
 
 		}
 	}
-
 	
-
-	// 显示信息
+	// 用于显示信息
 	public void showText(String str) {
 		String time = "[" + this.info.getTime() + "]";
 		String showStr = this.jta.getText() + time + str + "\n";

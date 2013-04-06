@@ -1,3 +1,6 @@
+/**
+ * 取配置文件数据类
+ */
 package chen.util;
 
 import java.io.IOException;
