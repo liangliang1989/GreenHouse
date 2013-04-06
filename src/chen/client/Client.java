@@ -41,6 +41,7 @@ public class Client extends Frame {
 		connect();
 		
 		tRecv.start();
+		System.out.println("start!");
 	}
 	
 	public void connect() {
