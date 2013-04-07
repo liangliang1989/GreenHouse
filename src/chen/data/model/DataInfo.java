@@ -59,7 +59,7 @@ public class DataInfo {
 
 	@Override
 	public String toString() {
-		return "data:---> [airTemperature=" + airTemperature + ", airHumidity="
+		return "set data:---> [airTemperature=" + airTemperature + ", airHumidity="
 				+ airHumidity + ", soilTemperature=" + soilTemperature
 				+ ", soilHumidity=" + soilHumidity + ", co2=" + co2
 				+ ", light=" + light + "]";

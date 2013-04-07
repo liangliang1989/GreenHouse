@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import chen.data.model.Device;
 import chen.util.PropertyMgr;
 
 public class Server {
@@ -115,16 +116,16 @@ public class Server {
 						sf.showText("receive a comman：--->" + data
 								+ "    from:--->" + s);
 						sf.showText("before-->" + sf.info.toString());
-						List<String> updata = new ArrayList<String>();
+						List<String> update = new ArrayList<String>();
 						for (int i = 1; i <= datas.length - 1; i++) {
-							updata.add(datas[i]);
+							update.add(datas[i]);
 						}
-						// 判断发来的数据是否符合约定
-						if (updata.size() < 6) {
+						// 判断发来的数据是否符合约定(数据条数)
+						if (update.size() < 6) {
 							send("erro,too short!");
 						} else {
 
-							sf.info.setData(updata);
+							sf.info.setData(update);
 						}
 						sf.showText("after----->" + sf.info.toString());
 					}
@@ -135,7 +136,7 @@ public class Server {
 						sf.showText("before-->" + sf.device.toString());
 						List<Boolean> control = new ArrayList<Boolean>();
 						Boolean b = null;
-						for (int i = 1; i < datas.length - 1; i++) {
+						for (int i = 1; i <=datas.length - 1; i++) {
 							if (datas[i].equals(TRUE)) {
 								b = true;
 							} else if (datas[i].equals(FAlSE)) {
@@ -143,7 +144,7 @@ public class Server {
 							}
 							control.add(b);
 						}
-						// 判断发来的数据是否符合约定
+						// 判断发来的数据是否符合约定(数据条数)
 						if (control.size() < 4) {
 							send("erro,too short!");
 						} else {

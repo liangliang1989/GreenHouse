@@ -162,14 +162,17 @@ public class ServerFrame extends JFrame {
 			else if (e.getSource() == jb3) {
 				dr.setWaitFlag(true);
 				dr.awake();
+				showText("start random!----------------->");
 			}
 			// 暂停线程
 			else if (e.getSource() == jb4) {	
 				dr.setWaitFlag(false);
+				showText("pause random!----------------->");
 			}
 			//清屏
 			else if(e.getSource()==jb5){
 			  jta.setText(null);
+			  showText("clear done!");
 			}
 			//退出
 			else if(e.getSource()==jb6){

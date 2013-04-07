@@ -19,15 +19,11 @@ public class Device {
 
 	public void setDevice(List<Boolean> data) {
 
-		if (data.size() >= 4) {
 			this.window = data.get(0);
 			this.fan = data.get(1);
 			this.heater = data.get(2);
 			this.humidifier = data.get(3);
-		} else {
-			return;
-		}
-
+		
 	}
 
 	public String toString() {
